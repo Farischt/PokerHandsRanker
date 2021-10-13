@@ -26,13 +26,14 @@ namespace PokerHandsRanker
             {
                 var handP1 = new List<string>();
                 var handP2 = new List<string>();
-                
+
                 var deck = _deckService.InitDeck();
                 while (handP1.Count != 5 && handP2.Count != 5)
                 {
                     _deckService.DrawCard(handP1, deck);
                     _deckService.DrawCard(handP2, deck);
                 }
+
                 var rankHandP1 = _handRankerService.RankHand(handP1);
                 var rankHandP2 = _handRankerService.RankHand(handP2);
 

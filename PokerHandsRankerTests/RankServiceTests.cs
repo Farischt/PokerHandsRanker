@@ -42,54 +42,81 @@ namespace PokerHandsRankerTests
         public void Should_Return_Correct_Straight_Flush()
         {
             // TODO
+            var hand = new List<string> { "5C", "6C", "7C", "8C", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[1].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Four_Of_A_Kind()
         {
             // TODO
+            var hand = new List<string> { "5C", "5S", "5H", "5D", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[2].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Full_House()
         {
             // TODO
+            var hand = new List<string> { "5C", "5S", "5H", "9D", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[3].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Flush()
         {
             // TODO
+            var hand = new List<string> { "5C", "8C", "3C", "6C", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[4].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Straight()
         {
             // TODO
+            var hand = new List<string> { "2C", "3S", "4H", "5D", "6C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[5].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Three_Of_A_Kind()
         {
             // TODO
+            var hand = new List<string> { "5C", "5S", "5H", "8D", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[6].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Two_Pairs()
         {
             // TODO
+            var hand = new List<string> { "5C", "5S", "6H", "6D", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[7].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_Pair()
         {
             // TODO
+            var hand = new List<string> { "5C", "5S", "6H", "8D", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[8].RankValue);
         }
 
         [Test]
         public void Should_Return_Correct_High_Card()
         {
             // TODO
+            var hand = new List<string> { "2C", "5S", "7H", "8D", "9C" };
+            var rank = _rankService.GetRankFromHand(hand);
+            Check.That(rank.RankValue).IsEqualTo(_allHandsListed[9].RankValue);
         }
     }
 }

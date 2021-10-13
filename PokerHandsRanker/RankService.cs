@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PokerHandsRanker.Interfaces;
 
@@ -11,6 +12,8 @@ namespace PokerHandsRanker
             var rank = HasMultipleSameValueCards(hand);
             var isStraight = IsStraight(hand);
             var isFlush = IsFlush(hand);
+
+            Console.WriteLine(rank + " " + isStraight + " " + isFlush);
 
             if (!ReferenceEquals(isStraight, null) && !ReferenceEquals(isFlush, null))
                 return isStraight[0].Equals('A') ? new Rank(10, isStraight) : new Rank(9, isStraight);
