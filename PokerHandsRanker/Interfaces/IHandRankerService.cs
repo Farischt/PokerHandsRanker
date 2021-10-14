@@ -4,7 +4,7 @@ namespace PokerHandsRanker.Interfaces
 {
     public interface IHandRankerService
     {
-        int RankHands(IList<string> handP1, IList<string> handP2);
+        int RankHands(List<List<string>> hands);
         IRank RankHand(IList<string> hand);
     }
 }

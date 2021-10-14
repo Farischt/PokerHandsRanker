@@ -24,23 +24,65 @@ namespace PokerHandsRanker
             var gameOver = false;
             while (!gameOver)
             {
-                var handP1 = new List<string>();
-                var handP2 = new List<string>();
-
-                var deck = _deckService.InitDeck();
-                while (handP1.Count != 5 && handP2.Count != 5)
+                string inputNPlayers;
+                int nPlayer = 0;
+                do
                 {
-                    _deckService.DrawCard(handP1, deck);
-                    _deckService.DrawCard(handP2, deck);
+                    Console.WriteLine("Enter the number of players");
+                    try
+                    {
+                        inputNPlayers = Console.ReadLine();
+                        nPlayer = Int32.Parse(inputNPlayers);
+                    }
+                    catch (FormatException exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
+                }
+                while (nPlayer < 2 || nPlayer > 8);
+
+                string inputNDecks;
+                int nDecks = 0;
+                do
+                {
+                    Console.WriteLine("Enter the number of decks");
+                    try
+                    {
+                        inputNDecks = Console.ReadLine();
+                        nDecks = Int32.Parse(inputNDecks);
+                    }
+                    catch (FormatException exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
+                }
+                while (nDecks < 1 || nDecks > 4);
+
+                var hands = new List<List<string>>();
+                var deck = _deckService.InitDeck();
+
+                for (var i = 0; i < nPlayer; i++)
+                {
+                    hands.Add(new List<string>());
+                    for (int j = 0; j < 5; j++)
+                    {
+                        _deckService.DrawCard(hands[i], deck);
+                    }
+
                 }
 
-                var rankHandP1 = _handRankerService.RankHand(handP1);
-                var rankHandP2 = _handRankerService.RankHand(handP2);
+                var rankHand = new List<IRank>();
+                for (var i = 0; i < nPlayer; i++)
+                {
+                    rankHand.Add(_handRankerService.RankHand(hands[i]));
+                }
+                
+                for (var i = 0; i < nPlayer; i++)
+                {
+                    _handPrinterService.PrintHand(i + 1, hands[i], rankHand[i]);
+                }
 
-                _handPrinterService.PrintHand(1, handP1, rankHandP1);
-                _handPrinterService.PrintHand(2, handP2, rankHandP2);
-
-                var winner = _handRankerService.RankHands(handP1, handP2);
+                var winner = _handRankerService.RankHands(hands);
 
                 Console.WriteLine(winner != 0 ? $"Player {winner} won this round !" : "It's a tie !");
                 Console.WriteLine("Play another hand ? Or press 'q' to quit...");

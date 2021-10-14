@@ -13,19 +13,28 @@ namespace PokerHandsRanker
             _rankService = rankService;
         }
 
-        public int RankHands(IList<string> handP1, IList<string> handP2)
+        //The function below is a WIP
+        public int RankHands(List<List<string>> hands)
         {
-            var rankHandP1 = RankHand(handP1);
-            var rankHandP2 = RankHand(handP2);
-
-            var p1Won = rankHandP1.IsBetterRank(rankHandP2);
-
-            if (p1Won != null)
+            var rankHand = new List<IRank>(hands.Count);
+            for (var i = 0; i < hands.Count; i++)
             {
-                return p1Won.Value ? 1 : 2;
+                rankHand.Add(RankHand(hands[i]));
             }
 
-            return 0;
+            bool? isWinning;
+            int pWon = 0;
+
+            for (var i = 1; i < hands.Count; i++)
+            {
+                isWinning = rankHand[pWon].IsBetterRank(rankHand[i]);
+                if (isWinning == false)
+                {
+                    pWon = i;
+                }
+            }
+
+            return pWon + 1;
         }
 
         public IRank RankHand(IList<string> hand)
